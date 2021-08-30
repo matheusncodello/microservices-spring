@@ -2,7 +2,6 @@ package com.matheusncodello.hruser.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Objects;
 
 @Entity
 @Table(name = "tb_role")
@@ -38,15 +37,27 @@ public class Role implements Serializable {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Role)) return false;
-        Role role = (Role) o;
-        return getRoleName().equals(role.getRoleName());
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((roleName == null) ? 0 : roleName.hashCode());
+        return result;
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(getRoleName());
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Role other = (Role) obj;
+        if (roleName == null) {
+            if (other.roleName != null)
+                return false;
+        } else if (!roleName.equals(other.roleName))
+            return false;
+        return true;
     }
 }
